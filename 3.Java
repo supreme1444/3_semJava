@@ -16,11 +16,11 @@ class Main
             String line;
         
             while ((line = br.readLine()) != null) {
-                String[] strings = line.split(",|:|\\s");
+                String[] strings = line.split(",|:|\\s|]|}");
                 for (int i = 0; i < 1; i++) 
                 {
                      
-                    text.append("Студент"+strings[1]+"получил"+strings[3]+ "по предмету"+strings[5]+"\n");
+                    text.append("Студент"+strings[1]+"получил"+strings[3]+ "по предмету"+strings[5]+"."+"\n");
                    
                 }
                 
