@@ -1,45 +1,39 @@
-package Java2;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+ 
+class Main
+{
+    public static void main(String[] args)
+    {
+        File file = new File("C:/Users/supre/OneDrive/Рабочий стол/Новая папка (11)/java 2/java_1/zapros.txt");
 
-import java.util.Arrays;
-
-class Main {
-    public static int[] mergeSort(int[] sortArr) {
-        int[] buffer1 = Arrays.copyOf(sortArr, sortArr.length);
-        int[] buffer2 = new int[sortArr.length];
-        int[] result = mergeSortInner(buffer1, buffer2, 0, sortArr.length);
-        return result;
-    }
-
-    public static int[] mergeSortInner(int[] buffer1, int[] buffer2, int startIndex, int endIndex) {
-        if (startIndex >= endIndex - 1) {
-            return buffer1;
+        
+        StringBuilder text = new StringBuilder();
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+        
+            while ((line = br.readLine()) != null) {
+                String[] strings = line.split(",|:|\\s");
+                for (String string : strings)
+                text.append(string);
+                
+                //System.out.println( text);
+            }
+            StringBuffer strBuffer = new StringBuffer(text);
+            strBuffer.replace(0,6,"SELECT * FROM students WHERE name = ");
+            strBuffer.replace(44,53,"AND country = ");
+            strBuffer.replace(66,73," AND city = ");
+            strBuffer.replace(85,100," ");
+            System.out.println(strBuffer.toString());
+            br.close();
+            
         }
-
-        int middle = startIndex + (endIndex - startIndex) / 2;
-        int[] sorted1 = mergeSortInner(buffer1, buffer2, startIndex, middle);
-        int[] sorted2 = mergeSortInner(buffer1, buffer2, middle, endIndex);
-
-        int index1 = startIndex;
-        int index2 = middle;
-        int destIndex = startIndex;
-        int[] result = sorted1 == buffer1 ? buffer2 : buffer1;
-        while (index1 < middle && index2 < endIndex) {
-            result[destIndex++] = sorted1[index1] < sorted2[index2]
-                    ? sorted1[index1++]
-                    : sorted2[index2++];
+        catch (IOException e) {
+            
         }
-        while (index1 < middle) {
-            result[destIndex++] = sorted1[index1++];
-        }
-        while (index2 < endIndex) {
-            result[destIndex++] = sorted2[index2++];
-        }
-        return result;
-    }
-
-    public static void main(String args[]) {
-        int[] sortArr = { 12, 6, 4, 1, 15, 10 };
-        int[] result = mergeSort(sortArr);
-        System.out.println(Arrays.toString(result));
     }
 }
